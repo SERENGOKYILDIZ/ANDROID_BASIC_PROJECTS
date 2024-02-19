@@ -7,7 +7,8 @@ public class Creating_a_variable {
     /*
     * Note: If you get an error when you "run" the project, do the following actions;
     * -Open the "gradle.xml" file under the ".idea" folder in the project files.
-    * -Add "<option name="delegatedBuild" value="false" />" under the "</option>" line. */
+    * -Add "<option name="delegatedBuild" value="false" />"
+    * under the "</option>" line. */
 
     /* @brief
     If the definition of a variable starts with a capital letter, it is a class.
