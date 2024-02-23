@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Android Tasarımı</string>
+    <string name="Header_Text">Android Tasarımı</string>
+    <string name="user_name_PlaceHolder">Kullanıcı adı</string>
+    <string name="password_PlaceHolder">Şifre</string>
+    <string name="login_Button">Giriş</string>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">The Design Android</string>
+    <string name="Header_Text">The Design Android</string>
+    <string name="user_name_PlaceHolder">Username</string>
+    <string name="password_PlaceHolder">Password</string>
+    <string name="login_Button">Login</string>
+</resources>
