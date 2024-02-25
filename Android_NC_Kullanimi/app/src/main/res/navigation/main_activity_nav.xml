@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_nav"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.android_nc_kullanimi.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/oyunGecis"
+            app:destination="@id/oyunFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/oyunFragment"
+        android:name="com.example.android_nc_kullanimi.OyunFragment"
+        android:label="fragment_oyun"
+        tools:layout="@layout/fragment_oyun" >
+        <action
+            android:id="@+id/sonucGecis"
+            app:destination="@id/sonucFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/oyunFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="ad"
+            app:argType="string"
+            android:defaultValue="isim yok" />
+        <argument
+            android:name="yas"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="boy"
+            app:argType="float"
+            android:defaultValue="0.0" />
+        <argument
+            android:name="bekarMi"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="kisi"
+            app:argType="com.example.android_nc_kullanimi.Classes.Kisiler" />
+    </fragment>
+    <fragment
+        android:id="@+id/sonucFragment"
+        android:name="com.example.android_nc_kullanimi.SonucFragment"
+        android:label="fragment_sonuc"
+        tools:layout="@layout/fragment_sonuc" />
+</navigation>
