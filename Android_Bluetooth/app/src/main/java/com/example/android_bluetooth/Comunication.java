@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,9 @@ public class Comunication extends AppCompatActivity {
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     Button buttonOn, buttonOff, buttonTouch;
+    Button buttonLed1, buttonLed2, buttonLed3, buttonLed4;
+    ImageView imageViewLed1, imageViewLed2, imageViewLed3, imageViewLed4;
+    Led led1, led2, led3, led4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,46 @@ public class Comunication extends AppCompatActivity {
         buttonOff = findViewById(R.id.buttonOff);
         buttonTouch = findViewById(R.id.buttonTouch);
 
+        buttonLed1 = findViewById(R.id.buttonLed1);
+        buttonLed2 = findViewById(R.id.buttonLed2);
+        buttonLed3 = findViewById(R.id.buttonLed3);
+        buttonLed4 = findViewById(R.id.buttonLed4);
+
+        imageViewLed1 = findViewById(R.id.imageViewLed1);
+        imageViewLed2 = findViewById(R.id.imageViewLed2);
+        imageViewLed3 = findViewById(R.id.imageViewLed3);
+        imageViewLed4 = findViewById(R.id.imageViewLed4);
+
+        led1 = new Led(buttonLed1, imageViewLed1);
+        led2 = new Led(buttonLed2, imageViewLed2);
+        led3 = new Led(buttonLed3, imageViewLed3);
+        led4 = new Led(buttonLed4, imageViewLed4);
+
+        Led.socket = btSocket;
+        led1.buttonLed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                led1.toggle_led("led1");
+            }
+        });
+        led2.buttonLed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                led2.toggle_led("led2");
+            }
+        });
+        led3.buttonLed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                led3.toggle_led("led3");
+            }
+        });
+        led4.buttonLed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                led4.toggle_led("led4");
+            }
+        });
         buttonOn.setOnClickListener(v -> {
             if(btSocket != null)
             {
@@ -70,36 +114,33 @@ public class Comunication extends AppCompatActivity {
                 }
             }
         });
-        buttonTouch.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(btSocket != null)
+        buttonTouch.setOnTouchListener((v, event) -> {
+            if(btSocket != null)
+            {
+                switch (event.getAction())
                 {
-                    switch (event.getAction())
+                    case MotionEvent.ACTION_DOWN:
+                    try {
+                        String data = "led on";
+                        btSocket.getOutputStream().write(data.getBytes(),0, data.length());
+                    }catch (IOException e)
                     {
-                        case MotionEvent.ACTION_DOWN:
+                        //ERROR
+                    }
+                    break;
+
+                    case MotionEvent.ACTION_UP:
                         try {
-                            String data = "led on";
+                            String data = "led off";
                             btSocket.getOutputStream().write(data.getBytes(),0, data.length());
                         }catch (IOException e)
                         {
                             //ERROR
                         }
                         break;
-
-                        case MotionEvent.ACTION_UP:
-                            try {
-                                String data = "led off";
-                                btSocket.getOutputStream().write(data.getBytes(),0, data.length());
-                            }catch (IOException e)
-                            {
-                                //ERROR
-                            }
-                            break;
-                    }
                 }
-                return false;
             }
+            return false;
         });
         new BTbaglan().execute();
     }
@@ -142,6 +183,7 @@ public class Comunication extends AppCompatActivity {
                         btSocket = cihaz.createInsecureRfcommSocketToServiceRecord(myUUID);
                         BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                         btSocket.connect();
+                        Led.socket = btSocket;
                         Log.e("DURUM", "Bağlantı oldu");
                     }
                     catch (SecurityException ex)
