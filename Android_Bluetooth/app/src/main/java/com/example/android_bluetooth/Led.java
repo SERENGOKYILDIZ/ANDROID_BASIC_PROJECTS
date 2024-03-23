@@ -57,6 +57,14 @@ public class Led {
             {
                 socket.getOutputStream().write(datam.getBytes(),0, datam.length());
                 Log.d(TAG, "dataWrite: Data writed");
+                /*
+                byte[] mmBuffer = new byte[1024];
+                int datalar = socket.getInputStream().read(mmBuffer);
+                for(byte by:mmBuffer)
+                {
+                    Log.d(TAG, "dataWrite: " + by);
+                }
+                */
             }
             catch (IOException e)
             {

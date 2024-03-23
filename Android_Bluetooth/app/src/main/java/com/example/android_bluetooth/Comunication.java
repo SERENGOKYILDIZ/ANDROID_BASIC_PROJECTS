@@ -142,6 +142,8 @@ public class Comunication extends AppCompatActivity {
             }
             return false;
         });
+        MyBluetoothService.ConnectedThread bt = new MyBluetoothService.ConnectedThread(btSocket);
+        bt.start();
         new BTbaglan().execute();
     }
     private void Disconnect(){
